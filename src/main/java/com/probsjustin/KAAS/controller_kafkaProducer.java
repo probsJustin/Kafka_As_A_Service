@@ -24,7 +24,12 @@ public class controller_kafkaProducer {
 		}else {
 			returnMap.put("bool", "false");
 		}
-		return returnMap;
+		return returnMap;	
+	}
+	
+	void controller(HttpServletRequest func_request, HttpServletResponse func_response) {
+		
 		
 	}
+	
 }
