@@ -1,5 +1,6 @@
 package com.probsjustin.KAAS;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -10,9 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class controller_kafkaConsumer {
-	String kafkaHost; 
-	String kafakTopic; 
-	String kafkaMessage;
 	controller_kafkaConsumer(){
 		
 	}
@@ -41,7 +39,7 @@ public class controller_kafkaConsumer {
 		return returnBool;	
 	}
 	
-	void controller(HttpServletRequest func_request, HttpServletResponse func_response) {
+	HttpServletResponse controller(HttpServletRequest func_request, HttpServletResponse func_response) {
 
 		List<Map<String,String>> temp_list = null; 	
 		
@@ -50,8 +48,14 @@ public class controller_kafkaConsumer {
 		temp_list.add(this.checkRequestParameter_Validator(func_request, "batchSize"));
 
 		if(check_requestParam_Map(temp_list)) {
-			
+			try {
+				func_response.getWriter().append("the things are there that need to be there");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		return func_response;
  		
 	}
 }

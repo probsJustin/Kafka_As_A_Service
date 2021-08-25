@@ -1,5 +1,6 @@
 package com.probsjustin.KAAS;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -10,14 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class controller_kafkaProducer {
-	String kafkaHost; 
-	String kafakTopic; 
-	String kafkaMessage; 
+
 	controller_kafkaProducer(){
 		
 	}
 	
-
 	Map <String,String> checkRequestParameter_Validator(HttpServletRequest func_request, String func_parameter_to_check) {
 		Map<String,String> returnMap = null;
 		if(func_request.getParameter(func_parameter_to_check) != null) {
@@ -42,7 +40,7 @@ public class controller_kafkaProducer {
 		return returnBool;	
 	}
 	
-	void controller(HttpServletRequest func_request, HttpServletResponse func_response) {
+	HttpServletResponse controller(HttpServletRequest func_request, HttpServletResponse func_response) {
 
 		List<Map<String,String>> temp_list = null; 	
 		
@@ -51,9 +49,14 @@ public class controller_kafkaProducer {
 		temp_list.add(this.checkRequestParameter_Validator(func_request, "message"));
 
 		if(check_requestParam_Map(temp_list)) {
-			
+			try {
+				func_response.getWriter().append("the things are there that need to be there");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
- 		
+		return func_response;
 	}
 	
 }
