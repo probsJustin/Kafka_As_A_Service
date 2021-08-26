@@ -22,7 +22,7 @@ public class callable_kafkaConsumer implements Callable<String> {
 	@Override
 	public String call() throws Exception{
 		Properties properties = new Properties();
-		properties.put("bootstrap.servers", String.valueOf(this.kafkaHost) + ":9092");
+		properties.put("bootstrap.servers", String.valueOf(this.kafkaHost));
 		properties.put("key.serializer", StringSerializer.class.getName());
 		properties.put("value.serializer", StringSerializer.class.getName());
 
