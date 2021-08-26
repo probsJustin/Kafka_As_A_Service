@@ -1,6 +1,7 @@
 package com.probsjustin.KAAS;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +43,7 @@ public class controller_kafkaProducer {
 	
 	HttpServletResponse controller(HttpServletRequest func_request, HttpServletResponse func_response) {
 
-		List<returnObject<String>> temp_list = null; 	
+		List<returnObject<String>> temp_list = new ArrayList(); 	
 		
 		temp_list.add(this.checkRequestParameter_Validator(func_request, "topic"));
 		temp_list.add(this.checkRequestParameter_Validator(func_request, "address")); 

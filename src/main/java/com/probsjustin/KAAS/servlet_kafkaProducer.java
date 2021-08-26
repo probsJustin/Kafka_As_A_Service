@@ -27,7 +27,8 @@ public class servlet_kafkaProducer extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		controller_kafkaProducer instance_controller_kafkaProducer = new controller_kafkaProducer(); 
+		response = instance_controller_kafkaProducer.controller(request, response);
 	}
 
 	/**
