@@ -19,8 +19,6 @@ public class callable_kafkaProducer implements Callable<String> {
 		this.kafkaTopic = func_kafkaTopic; 
 	}
 	
-
-	
 	@Override
 	public String call() throws Exception {
 		 Properties properties = new Properties();
