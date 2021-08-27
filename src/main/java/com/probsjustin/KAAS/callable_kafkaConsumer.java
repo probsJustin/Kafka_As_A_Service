@@ -17,7 +17,7 @@ public class callable_kafkaConsumer implements Callable<String> {
 	final Logger logger = LogManager.getLogger(callable_kafkaConsumer.class);
 
 	callable_kafkaConsumer(String func_kafkaHost, String func_kafkaMessage, String func_kafkaTopic){
-		logger.trace("Creating Instance of callable_kafkaConsumer");
+		logger.debug("Creating Instance of callable_kafkaConsumer");
 		this.kafkaHost = func_kafkaHost; 
 		this.kafkaMessage = func_kafkaMessage; 
 		this.kafkaTopic = func_kafkaTopic; 
@@ -25,7 +25,7 @@ public class callable_kafkaConsumer implements Callable<String> {
 	
 	@Override
 	public String call() throws Exception{
-		logger.trace("Attempting to run an instance of callable_kafkaConsumer");
+		logger.debug("Attempting to run an instance of callable_kafkaConsumer");
 
 		Properties properties = new Properties();
 		properties.put("bootstrap.servers", String.valueOf(this.kafkaHost));
@@ -37,7 +37,7 @@ public class callable_kafkaConsumer implements Callable<String> {
 	
 	     // Subscribe to the topic.
 	     kafka_consumer_instance.subscribe(Collections.singletonList(this.kafkaTopic));
-		 logger.trace("Fisned an instance of callable_kafkaConsumer");
+		 logger.debug("Fisned an instance of callable_kafkaConsumer");
 	     return kafka_consumer_instance.toString();
 
 	 }

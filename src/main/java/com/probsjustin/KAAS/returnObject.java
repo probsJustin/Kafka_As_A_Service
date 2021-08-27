@@ -14,7 +14,7 @@ public class returnObject<T> {
 		Boolean func_bool_return = false; 
 		this.bool = func_bool; 
 		if(this.bool == func_bool) {
-			logger.trace("This instance of returnObject of [" + this.info + "] has set its bool variable to -> " + this.bool);
+			logger.debug("This instance of returnObject of [" + this.info + "] has set its bool variable to -> " + this.bool);
 			func_bool_return = true; 
 		}else {
 			func_bool_return = false; 
@@ -26,7 +26,7 @@ public class returnObject<T> {
 		Boolean func_bool_return = false;
 		this.info = func_info; 
 		if(this.info == func_info) {
-			logger.trace("This instance of returnObject has been set to -> " + this.info);
+			logger.debug("This instance of returnObject has been set to -> " + this.info);
 			func_bool_return = true;
 		}else {
 			func_bool_return = false; 
@@ -50,7 +50,7 @@ public class returnObject<T> {
 		Boolean func_bool_return = false;
 		this.instance_returnable = func_object; 
 		if(this.instance_returnable == func_object) {
-			logger.trace("This instance of returnObject ["+ this.info +"] has set its instance_returnable variable to -> " + this.instance_returnable.toString());
+			logger.debug("This instance of returnObject ["+ this.info +"] has set its instance_returnable variable to -> " + this.instance_returnable.toString());
 			func_bool_return = true;
 		}else {
 			func_bool_return = false; 

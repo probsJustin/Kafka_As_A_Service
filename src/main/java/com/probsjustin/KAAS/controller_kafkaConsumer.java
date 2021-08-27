@@ -1,6 +1,7 @@
 package com.probsjustin.KAAS;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class controller_kafkaConsumer {
 	final Logger logger = LogManager.getLogger(controller_kafkaConsumer.class);
 
 	controller_kafkaConsumer(){
-		logger.trace("controller_kafkaConsumer instance created");
+		logger.debug("controller_kafkaConsumer instance created");
 	}
 	
 	returnObject<String> checkRequestParameter_Validator(HttpServletRequest func_request, String func_parameter_to_check) {
@@ -47,9 +48,9 @@ public class controller_kafkaConsumer {
 	
 	HttpServletResponse controller(HttpServletRequest func_request, HttpServletResponse func_response, identification_request_holder func_identification_request_holder_instance) {
 
-		List<returnObject<String>> temp_list = null; 	
-		logger.trace(func_identification_request_holder_instance.getRequest_ID_String()); 
-		logger.trace(func_identification_request_holder_instance.getRequest_ID_String() + "Checking All request parameters via temp_list");
+		List<returnObject<String>> temp_list = new ArrayList(); 	
+		logger.debug(func_identification_request_holder_instance.getRequest_ID_String()); 
+		logger.debug(func_identification_request_holder_instance.getRequest_ID_String() + "Checking All request parameters via temp_list");
 
 		temp_list.add(this.checkRequestParameter_Validator(func_request, "topic"));
 		temp_list.add(this.checkRequestParameter_Validator(func_request, "address")); 
@@ -63,7 +64,7 @@ public class controller_kafkaConsumer {
 				e.printStackTrace();
 			}
 		}else {
-			logger.trace(func_identification_request_holder_instance.getRequest_ID_String() + "Request parameters are missing fromt he check_requestPAram_map");
+			logger.debug(func_identification_request_holder_instance.getRequest_ID_String() + "Request parameters are missing fromt he check_requestPAram_map");
 		}
 		return func_response;
  		

@@ -18,7 +18,7 @@ public class callable_kafkaProducer implements Callable<String> {
 
 	
 	callable_kafkaProducer(String func_kafkaHost, String func_kafkaMessage, String func_kafkaTopic){
-		logger.trace("Creating Instance of callable_kafkaProducer");
+		logger.debug("Creating Instance of callable_kafkaProducer");
 		this.kafkaHost = func_kafkaHost; 
 		this.kafkaMessage = func_kafkaMessage; 
 		this.kafkaTopic = func_kafkaTopic; 
@@ -26,7 +26,7 @@ public class callable_kafkaProducer implements Callable<String> {
 	
 	@Override
 	public String call() throws Exception {
-		logger.trace("Attempting to run an instance of callable_kafkaProducer");
+		logger.debug("Attempting to run an instance of callable_kafkaProducer");
 
 		 Properties properties = new Properties();
 		 properties.put("bootstrap.servers", String.valueOf(this.kafkaHost));
@@ -41,7 +41,7 @@ public class callable_kafkaProducer implements Callable<String> {
 		 kafkaProducer.send(callable_record);
 		 kafkaProducer.flush();
 		 kafkaProducer.close();
-		 logger.trace("Fisned and Flushed an instance of callable_kafkaProducer");
+		 logger.debug("Fisned and Flushed an instance of callable_kafkaProducer");
 
 		return kafkaHost;
 	}
