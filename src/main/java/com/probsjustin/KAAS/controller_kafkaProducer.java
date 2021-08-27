@@ -45,10 +45,12 @@ public class controller_kafkaProducer {
 		return returnBool;	
 	}
 	
-	HttpServletResponse controller(HttpServletRequest func_request, HttpServletResponse func_response) {
+	HttpServletResponse controller(HttpServletRequest func_request, HttpServletResponse func_response, identification_request_holder func_identification_request_holder_instance) {
 
 		List<returnObject<String>> temp_list = new ArrayList(); 	
 		logger.trace("Checking All request parameters via temp_list");
+		logger.trace(func_identification_request_holder_instance.getRequest_ID_String()); 
+
 		temp_list.add(this.checkRequestParameter_Validator(func_request, "topic"));
 		temp_list.add(this.checkRequestParameter_Validator(func_request, "address")); 
 		temp_list.add(this.checkRequestParameter_Validator(func_request, "message"));
