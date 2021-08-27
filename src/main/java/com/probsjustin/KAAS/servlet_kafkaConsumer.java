@@ -33,13 +33,13 @@ public class servlet_kafkaConsumer extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		logger.trace("Servlet Recieved Incoming Request");
 		identification_request_holder temp_identification_request_holder = new identification_request_holder(request.getRequestURI(), new Date() , request.getRemoteAddr()); 
+		logger.trace(temp_identification_request_holder.getRequest_ID_String() + "Servlet Recieved Incoming Request");
 		logger.trace(temp_identification_request_holder.getRequest_ID_String()); 
 		controller_kafkaConsumer instance_controller_kafkaConsumer = new controller_kafkaConsumer(); 
 		response = instance_controller_kafkaConsumer.controller(request, response, temp_identification_request_holder);
 
-		logger.trace("Servlet finished processing the request");
+		logger.trace(temp_identification_request_holder.getRequest_ID_String() + "Servlet finished processing the request");
 
 	}
 
