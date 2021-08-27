@@ -20,11 +20,11 @@ public class controller_kafkaProducer {
 	returnObject<String> checkRequestParameter_Validator(HttpServletRequest func_request, String func_parameter_to_check) {
 		returnObject<String> returnObjectInstance = new returnObject();
 		if(func_request.getParameter(func_parameter_to_check) != null) {
-			returnObjectInstance.bool = true;
+			returnObjectInstance.setBool(true);
 			returnObjectInstance.instance_returnable = func_request.getParameter(func_parameter_to_check);
-			returnObjectInstance.info = func_parameter_to_check;
+			returnObjectInstance.setInfo(func_parameter_to_check);
 		}else {
-			returnObjectInstance.bool = false;
+			returnObjectInstance.setBool(false);
 		}
 		return returnObjectInstance;
 		
