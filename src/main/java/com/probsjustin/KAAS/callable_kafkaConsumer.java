@@ -14,7 +14,7 @@ public class callable_kafkaConsumer implements Callable<String> {
 	String kafkaHost; 
 	String kafkaMessage; 
 	String kafkaTopic; 
-	final Logger logger = LogManager.getLogger(returnObject.class);
+	final Logger logger = LogManager.getLogger(callable_kafkaConsumer.class);
 
 	callable_kafkaConsumer(String func_kafkaHost, String func_kafkaMessage, String func_kafkaTopic){
 		logger.trace("Creating Instance of callable_kafkaConsumer");

@@ -15,7 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class controller_kafkaProducer {
-	final Logger logger = LogManager.getLogger(returnObject.class);
+	final Logger logger = LogManager.getLogger(controller_kafkaProducer.class);
 	controller_kafkaProducer(){
 		logger.trace("controller_kafkaProducer instance created");
 	}

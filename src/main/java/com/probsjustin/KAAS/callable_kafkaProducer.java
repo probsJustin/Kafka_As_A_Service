@@ -14,7 +14,7 @@ public class callable_kafkaProducer implements Callable<String> {
 	String kafkaHost; 
 	String kafkaMessage; 
 	String kafkaTopic; 
-	final Logger logger = LogManager.getLogger(returnObject.class);
+	final Logger logger = LogManager.getLogger(callable_kafkaProducer.class);
 
 	
 	callable_kafkaProducer(String func_kafkaHost, String func_kafkaMessage, String func_kafkaTopic){
