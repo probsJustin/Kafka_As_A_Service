@@ -10,19 +10,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class controller_kafkaConsumer {
+	final Logger logger = LogManager.getLogger(returnObject.class);
+
 	controller_kafkaConsumer(){
-		
+		logger.trace("controller_kafkaConsumer instance created");
 	}
 	
 	returnObject<String> checkRequestParameter_Validator(HttpServletRequest func_request, String func_parameter_to_check) {
 		returnObject<String> returnObjectInstance = new returnObject();
 		if(func_request.getParameter(func_parameter_to_check) != null) {
-			returnObjectInstance.bool = true;
-			returnObjectInstance.instance_returnable = func_request.getParameter(func_parameter_to_check);
-			returnObjectInstance.info = func_parameter_to_check;
+			returnObjectInstance.setBool(true);
+			returnObjectInstance.setObject(func_request.getParameter(func_parameter_to_check));
+			returnObjectInstance.setInfo(func_parameter_to_check);
 		}else {
-			returnObjectInstance.bool = false;
+			returnObjectInstance.setBool(false);
+			logger.error("request parameter check failed for [" + func_parameter_to_check + "]");
 		}
 		return returnObjectInstance;
 		
@@ -42,7 +48,7 @@ public class controller_kafkaConsumer {
 	HttpServletResponse controller(HttpServletRequest func_request, HttpServletResponse func_response) {
 
 		List<returnObject<String>> temp_list = null; 	
-		
+		logger.trace("Checking All request parameters via temp_list");
 		temp_list.add(this.checkRequestParameter_Validator(func_request, "topic"));
 		temp_list.add(this.checkRequestParameter_Validator(func_request, "address")); 
 		temp_list.add(this.checkRequestParameter_Validator(func_request, "batchSize"));
@@ -54,6 +60,8 @@ public class controller_kafkaConsumer {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else {
+			logger.trace("Request parameters are missing fromt he check_requestPAram_map");
 		}
 		return func_response;
  		
