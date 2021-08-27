@@ -16,8 +16,7 @@ import org.apache.logging.log4j.LogManager;
 @WebServlet("/kafkaProducer")
 public class servlet_kafkaProducer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	final Logger logger = LogManager.getLogger(servlet_kafkaProducer.class);
-       
+	logger_internal instance_logger_internal = new logger_internal();       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,11 +32,11 @@ public class servlet_kafkaProducer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		identification_request_holder temp_identification_request_holder = new identification_request_holder(request.getRequestURI(), new Date() , request.getRemoteAddr());
-		logger.debug(temp_identification_request_holder.getRequest_ID_String() + "Servlet Recieved Incoming Request");
-		logger.debug(temp_identification_request_holder.getRequest_ID_String()); 
+		instance_logger_internal.debug(temp_identification_request_holder.getRequest_ID_String() + "Servlet Recieved Incoming Request");
+		instance_logger_internal.debug(temp_identification_request_holder.getRequest_ID_String()); 
 		controller_kafkaProducer instance_controller_kafkaProducer = new controller_kafkaProducer(); 
 		response = instance_controller_kafkaProducer.controller(request, response, temp_identification_request_holder);
-		logger.debug(temp_identification_request_holder.getRequest_ID_String() + "Servlet finished processing the request");
+		instance_logger_internal.debug(temp_identification_request_holder.getRequest_ID_String() + "Servlet finished processing the request");
 	}
 
 	/**
