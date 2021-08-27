@@ -50,7 +50,7 @@ public class returnObject<T> {
 		Boolean func_bool_return = false;
 		this.instance_returnable = func_object; 
 		if(this.instance_returnable == func_object) {
-			logger.trace("This instance of returnObject ["+ this.info +"] has set its instance_returnable variable to -> " + this.instance_returnable);
+			logger.trace("This instance of returnObject ["+ this.info +"] has set its instance_returnable variable to -> " + this.instance_returnable.toString());
 			func_bool_return = true;
 		}else {
 			func_bool_return = false; 
