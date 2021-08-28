@@ -1,5 +1,8 @@
 package com.probsjustin.KAAS;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,12 +12,20 @@ public class returnObject<T> {
 	public Object instance_returnable = new Object(); 
 	public String message = ""; 
 	public String info = ""; 
+	public String timestamp = ""; 
+	
+	returnObject(){
+		Date date = new Date();
+		Timestamp timestamp = new Timestamp(date.getTime());
+		this.timestamp = timestamp.toString(); 
+		this.info = "<INIT> :: " + this.timestamp; 
+	}
 	
 	Boolean setBool(Boolean func_bool) {
 		Boolean func_bool_return = false; 
 		this.bool = func_bool; 
 		if(this.bool == func_bool) {
-			instance_logger_internal.debug("This instance of returnObject of [" + this.info + "] has set its bool variable to -> " + this.bool);
+			instance_logger_internal.debug("This instance of returnObject [" + this.info + "] has set its bool variable to -> " + this.bool);
 			func_bool_return = true; 
 		}else {
 			func_bool_return = false; 
@@ -50,7 +61,8 @@ public class returnObject<T> {
 		Boolean func_bool_return = false;
 		this.instance_returnable = func_object; 
 		if(this.instance_returnable == func_object) {
-			instance_logger_internal.debug("This instance of returnObject ["+ this.info +"] has set its instance_returnable variable to -> " + this.instance_returnable.toString());
+			this.info = " " + func_object.getClass().getName().toString() + " :: " + this.timestamp; 
+			instance_logger_internal.debug("This instance of returnObject ["+ this.info +"] has set its instance_returnable variable to -> " + func_object.getClass().getName().toString() + "::" + this.instance_returnable.toString());
 			func_bool_return = true;
 		}else {
 			func_bool_return = false; 

@@ -16,6 +16,7 @@ public class identification_request_holder {
 	Boolean setRequestURI(String func_request_uri) {
 		returnObject temp_returnObject = new returnObject();  
 		if(temp_returnObject.setObject(func_request_uri)) {
+			this.requestURI = func_request_uri; 
 			return true; 
 		}else {
 			return false; 
@@ -25,6 +26,7 @@ public class identification_request_holder {
 	Boolean setRequestTimeStamp(String func_requestTimeStamp) {
 		returnObject temp_returnObject = new returnObject(); 
 		if(temp_returnObject.setObject(func_requestTimeStamp)) {
+			this.requestTimeStamp = func_requestTimeStamp;
 			return true; 
 		}else {
 			return false; 
@@ -33,6 +35,7 @@ public class identification_request_holder {
 	Boolean setRequestClientAddress(String func_requestClientAddress) {
 		returnObject temp_returnObject = new returnObject(); 
 		if(temp_returnObject.setObject(func_requestClientAddress)) {
+			this.requestClientAddress = func_requestClientAddress; 
 			return true; 
 		}else {
 			return false; 

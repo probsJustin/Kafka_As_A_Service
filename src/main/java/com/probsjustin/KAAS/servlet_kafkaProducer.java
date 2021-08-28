@@ -33,7 +33,6 @@ public class servlet_kafkaProducer extends HttpServlet {
 		// TODO Auto-generated method stub
 		identification_request_holder temp_identification_request_holder = new identification_request_holder(request.getRequestURI(), new Date() , request.getRemoteAddr());
 		instance_logger_internal.debug(temp_identification_request_holder.getRequest_ID_String() + " Servlet Recieved Incoming Request");
-		instance_logger_internal.debug(temp_identification_request_holder.getRequest_ID_String()); 
 		controller_kafkaProducer instance_controller_kafkaProducer = new controller_kafkaProducer(); 
 		response = instance_controller_kafkaProducer.controller(request, response, temp_identification_request_holder);
 		instance_logger_internal.debug(temp_identification_request_holder.getRequest_ID_String() + " Servlet finished processing the request");
