@@ -27,27 +27,34 @@ public class logger_internal {
 	}
 	
 	void writeLog(String func_debugFlag, String func_debugMessage) {
+		String holder_timestamp = "";
 		Date date = new Date();
 		Timestamp timestamp = new Timestamp(date.getTime());
+		if(timestamp.toString().length() <= 22) {
+			holder_timestamp = timestamp.toString() + " "; 
+		}else {
+			holder_timestamp = timestamp.toString(); 
+
+		}
 		if(this.internalDebugMap.get(internalDebugLevel) <= this.internalDebugMap.get(func_debugFlag)){ 
 			switch(this.internalDebugMap.get(func_debugFlag)) {
 			case 1: {
-				String tempDebugString = "[INFO ] " + timestamp + " | " + func_debugMessage.toString();
+				String tempDebugString = "[INFO ] " + holder_timestamp + " | " + func_debugMessage.toString();
 				System.out.println(tempDebugString);  
 				break;		
 			}
 			case 2: {
-				String tempDebugString = "[WARN ] " + timestamp + " | " + func_debugMessage.toString();
+				String tempDebugString = "[WARN ] " + holder_timestamp + " | " + func_debugMessage.toString();
 				System.out.println(tempDebugString);  
 				break;		
 			}
 			case 3: { 
-				String tempDebugString = "[ERROR] " + timestamp + " | " + func_debugMessage.toString();
+				String tempDebugString = "[ERROR] " + holder_timestamp + " | " + func_debugMessage.toString();
 				System.out.println(tempDebugString);  
 				break;		
 			}
 			case 4: {
-				String tempDebugString = "[DEBUG] " + timestamp + " | " + func_debugMessage.toString();
+				String tempDebugString = "[DEBUG] " + holder_timestamp + " | " + func_debugMessage.toString();
 				System.out.println(tempDebugString);  
 				break;		
 				}
