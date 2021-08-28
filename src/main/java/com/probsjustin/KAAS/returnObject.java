@@ -20,6 +20,13 @@ public class returnObject<T> {
 		this.timestamp = timestamp.toString(); 
 		this.info = "<INIT> :: " + this.timestamp; 
 	}
+	returnObject(Object func_object){
+		Date date = new Date();
+		Timestamp timestamp = new Timestamp(date.getTime());
+		this.timestamp = timestamp.toString(); 
+		this.info = func_object.toString() + " :: " + this.timestamp; 
+		this.instance_returnable = func_object; 
+	}
 	
 	Boolean setBool(Boolean func_bool) {
 		Boolean func_bool_return = false; 

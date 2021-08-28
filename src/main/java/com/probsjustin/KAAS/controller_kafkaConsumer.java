@@ -46,7 +46,20 @@ public class controller_kafkaConsumer {
 		return returnBool;	
 	}
 	
-	HttpServletResponse controller(HttpServletRequest func_request, HttpServletResponse func_response, identification_request_holder func_identification_request_holder_instance) {
+	returnObject check_missingParameter(List<returnObject<String>> temp_list) {
+		returnObject instance_returnObject = new returnObject();
+		String tempString = ""; 
+		for (returnObject<String> tempFunc : temp_list){
+			if(tempFunc.bool == false) {
+				tempString += tempFunc.info + ", "; 
+			}
+		}
+		tempString = tempString.substring(0, tempString.length()-2);
+		instance_returnObject.setObject(tempString);
+		return instance_returnObject; 
+	}
+	
+	HttpServletResponse controller(HttpServletRequest func_request, HttpServletResponse func_response, identification_request_holder func_identification_request_holder_instance) throws IOException {
 
 		List<returnObject<String>> temp_list = new ArrayList(); 	
 		instance_logger_internal.debug(func_identification_request_holder_instance.getRequest_ID_String()); 
@@ -65,6 +78,8 @@ public class controller_kafkaConsumer {
 			}
 		}else {
 			instance_logger_internal.debug(func_identification_request_holder_instance.getRequest_ID_String() + " Request parameters are missing from the check_requestPAram_map");
+			func_response.getWriter().append("The request is malformed and missing some parameters to fufill your request.");
+			func_response.getWriter().append("Parameter missing: " + check_missingParameter(temp_list).instance_returnable.toString());
 		}
 		return func_response;
  		
