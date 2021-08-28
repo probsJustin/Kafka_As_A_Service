@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 public class returnObject<T> {
 	logger_internal instance_logger_internal = new logger_internal(); 
 	public Boolean bool = false;
-	public Object instance_returnable; 
+	public Object instance_returnable = new Object(); 
 	public String message = ""; 
 	public String info = ""; 
 	

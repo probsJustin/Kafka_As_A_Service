@@ -2,19 +2,20 @@ package com.probsjustin.KAAS;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class logger_internal {
-	String internalDebugLevel = "";
-	Map<String,Integer> internalDebugMap = null; 
+	String internalDebugLevel = "debug";
+	Map<String,Integer> internalDebugMap = new HashMap<String,Integer>(); 
 	
 	
 	logger_internal(){
-		internalDebugMap.put("info", 	1);
-		internalDebugMap.put("warn", 	2);
-		internalDebugMap.put("error",	3);
-		internalDebugMap.put("debug",	4);
-		internalDebugMap.put("servlet",	0);
+		this.internalDebugMap.put("info", 	1);
+		this.internalDebugMap.put("warn", 	2);
+		this.internalDebugMap.put("error",	3);
+		this.internalDebugMap.put("debug",	4);
+		this.internalDebugMap.put("servlet",	0);
 	}
 	
 	void debug(String func_debugMessage) {
@@ -28,8 +29,8 @@ public class logger_internal {
 	void writeLog(String func_debugFlag, String func_debugMessage) {
 		Date date = new Date();
 		Timestamp timestamp = new Timestamp(date.getTime());
-		if(internalDebugMap.get(internalDebugLevel) <= internalDebugMap.get(func_debugFlag)){ 
-			switch(internalDebugMap.get(func_debugFlag)) {
+		if(this.internalDebugMap.get(internalDebugLevel) <= this.internalDebugMap.get(func_debugFlag)){ 
+			switch(this.internalDebugMap.get(func_debugFlag)) {
 			case 1: {
 				String tempDebugString = "[INFO ] " + timestamp + " | " + func_debugMessage.toString();
 				System.out.println(tempDebugString);  

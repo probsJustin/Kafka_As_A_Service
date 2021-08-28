@@ -49,7 +49,7 @@ public class controller_kafkaProducer {
 
 		List<returnObject<String>> temp_list = new ArrayList(); 	
 		instance_logger_internal.debug(func_identification_request_holder_instance.getRequest_ID_String()); 
-		instance_logger_internal.debug(func_identification_request_holder_instance.getRequest_ID_String() + "Checking All request parameters via temp_list");
+		instance_logger_internal.debug(func_identification_request_holder_instance.getRequest_ID_String() + " Checking All request parameters via temp_list");
 
 		temp_list.add(this.checkRequestParameter_Validator(func_request, "topic"));
 		temp_list.add(this.checkRequestParameter_Validator(func_request, "address")); 
@@ -63,7 +63,7 @@ public class controller_kafkaProducer {
 				e.printStackTrace();
 			}
 		}else {
-			instance_logger_internal.debug(func_identification_request_holder_instance.getRequest_ID_String() + "Request parameters are missing fromt he check_requestPAram_map");
+			instance_logger_internal.debug(func_identification_request_holder_instance.getRequest_ID_String() + " Request parameters are missing from the check_requestPAram_map");
 		}
 		return func_response;
 	}
