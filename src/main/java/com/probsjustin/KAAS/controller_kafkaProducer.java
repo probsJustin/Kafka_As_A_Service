@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class controller_kafkaProducer {
 	logger_internal instance_logger_internal = new logger_internal(); 
@@ -46,7 +46,6 @@ public class controller_kafkaProducer {
 			if(!temp_list.get(temp_itr).bool){
 				returnBool = false;
 			}
-			instance_logger_internal.debug(temp_list.get(temp_itr).info);
 		}
 		return returnBool;	
 	}
@@ -63,7 +62,7 @@ public class controller_kafkaProducer {
 		return instance_returnObject; 
 	}
 	
-	HttpServletResponse controller(HttpServletRequest func_request, HttpServletResponse func_response, identification_request_holder func_identification_request_holder_instance) throws IOException {
+	HttpServletResponse controller(HttpServletRequest func_request, HttpServletResponse func_response, identification_request_holder func_identification_request_holder_instance) throws IOException, InterruptedException {
 
 		Map <String,returnObject<String>> temp_map_holder_request_parameters_of_returnObject = new HashMap<String,returnObject<String>>(); 	
 		instance_logger_internal.debug(func_identification_request_holder_instance.getRequest_ID_String()); 
@@ -76,6 +75,27 @@ public class controller_kafkaProducer {
 		if(check_requestParam_Map(temp_map_holder_request_parameters_of_returnObject)) {
 			try {
 				func_response.getWriter().append("the things are there that need to be there");
+				callable_kafkaProducer instance_callable_kafkaProducer = new callable_kafkaProducer( 
+						temp_map_holder_request_parameters_of_returnObject.get("address").instance_returnable.toString(), 
+						temp_map_holder_request_parameters_of_returnObject.get("message").instance_returnable.toString(),
+						temp_map_holder_request_parameters_of_returnObject.get("topic").instance_returnable.toString()
+						); 
+				ExecutorService executor_thrd_callable_kafkaProducer = Executors.newSingleThreadExecutor();
+				
+				Future<String> futureResult_executor_thrd_callable_kafkaProducer = executor_thrd_callable_kafkaProducer.submit(instance_callable_kafkaProducer);
+				instance_logger_internal.debug("FUTURE:" + futureResult_executor_thrd_callable_kafkaProducer);
+				while(!executor_thrd_callable_kafkaProducer.isShutdown() && !futureResult_executor_thrd_callable_kafkaProducer.isDone()) {
+					instance_logger_internal.debug("Waiting for executor service to be terminated.");
+					instance_logger_internal.debug("EXECUTOR STATUS:" + !executor_thrd_callable_kafkaProducer.isShutdown());
+					instance_logger_internal.debug("FUTURE IS SHUT DOWN:" + !futureResult_executor_thrd_callable_kafkaProducer.isDone());
+					instance_logger_internal.debug("FUTURE:" + futureResult_executor_thrd_callable_kafkaProducer);
+
+		            Thread.sleep(4000);
+				}
+				instance_logger_internal.debug("Executor appears to be shut down.");
+				instance_logger_internal.debug("RESULT FUTURE:" + futureResult_executor_thrd_callable_kafkaProducer);
+
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

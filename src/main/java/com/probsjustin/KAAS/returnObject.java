@@ -3,8 +3,7 @@ package com.probsjustin.KAAS;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 public class returnObject<T> {
 	logger_internal instance_logger_internal = new logger_internal(); 

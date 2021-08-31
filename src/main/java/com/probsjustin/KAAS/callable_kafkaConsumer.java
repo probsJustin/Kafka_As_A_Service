@@ -7,8 +7,7 @@ import java.util.Properties;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 public class callable_kafkaConsumer implements Callable<String> {
 	String kafkaHost; 

@@ -31,7 +31,11 @@ public class logger_internal {
 		Date date = new Date();
 		Timestamp timestamp = new Timestamp(date.getTime());
 		if(timestamp.toString().length() <= 22) {
-			holder_timestamp = timestamp.toString() + " "; 
+			if(timestamp.toString().length() <= 21) {
+				holder_timestamp = timestamp.toString() + "  "; 
+			}else {
+				holder_timestamp = timestamp.toString() + " "; 
+			}
 		}else {
 			holder_timestamp = timestamp.toString(); 
 

@@ -8,8 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+
 /**
  * Servlet implementation class kafkaProducer
  */
@@ -34,7 +33,15 @@ public class servlet_kafkaProducer extends HttpServlet {
 		identification_request_holder temp_identification_request_holder = new identification_request_holder(request.getRequestURI(), new Date() , request.getRemoteAddr());
 		instance_logger_internal.debug(temp_identification_request_holder.getRequest_ID_String() + " Servlet Recieved Incoming Request");
 		controller_kafkaProducer instance_controller_kafkaProducer = new controller_kafkaProducer(); 
-		response = instance_controller_kafkaProducer.controller(request, response, temp_identification_request_holder);
+		try {
+			response = instance_controller_kafkaProducer.controller(request, response, temp_identification_request_holder);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		instance_logger_internal.debug(temp_identification_request_holder.getRequest_ID_String() + " Servlet finished processing the request");
 	}
 

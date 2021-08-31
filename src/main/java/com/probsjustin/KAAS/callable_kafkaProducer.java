@@ -5,15 +5,18 @@ import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 public class callable_kafkaProducer implements Callable<String> {
 	String kafkaHost; 
 	String kafkaMessage; 
 	String kafkaTopic; 
+	Properties properties = new Properties();
+	Producer<String, String> instance_kafkaProducer = null;
+	ProducerRecord<String, String> callable_record = null;
 	logger_internal instance_logger_internal = new logger_internal(); 
 
 	
@@ -22,27 +25,40 @@ public class callable_kafkaProducer implements Callable<String> {
 		this.kafkaHost = func_kafkaHost; 
 		this.kafkaMessage = func_kafkaMessage; 
 		this.kafkaTopic = func_kafkaTopic; 
+		instance_logger_internal.debug("Added properties to the prop variable");
+		properties.put("bootstrap.servers", this.kafkaHost);
+		properties.put("acks", "all");
+		properties.put("retries", 0);
+		properties.put("batch.size", 16384);
+		properties.put("linger.ms", 1);
+		properties.put("buffer.memory", 33554432);
+		properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+		properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+		this.instance_kafkaProducer = new KafkaProducer<String, String>(properties, new StringSerializer(), new StringSerializer());
+		this.callable_record = new ProducerRecord<String,String>(this.kafkaTopic, this.kafkaMessage, this.kafkaMessage);
+
 	}
 	
 	@Override
 	public String call() throws Exception {
 		instance_logger_internal.debug("Attempting to run an instance of callable_kafkaProducer");
 
-		 Properties properties = new Properties();
-		 properties.put("bootstrap.servers", String.valueOf(this.kafkaHost));
-		 properties.put("key.serializer", StringSerializer.class.getName());
-		 properties.put("value.serializer", StringSerializer.class.getName());
-		 
-		 KafkaProducer kafkaProducer = new KafkaProducer(properties);
-		 ProducerRecord<String, String> callable_record = new ProducerRecord(this.kafkaTopic, this.kafkaMessage);
-		 
-		 callable_record.headers().add("FEED_NAME", this.kafkaTopic.getBytes(StandardCharsets.UTF_8));
-		
-		 kafkaProducer.send(callable_record);
-		 kafkaProducer.flush();
-		 kafkaProducer.close();
-		 instance_logger_internal.debug("Fisned and Flushed an instance of callable_kafkaProducer");
+		instance_logger_internal.debug("HOST: " + this.kafkaHost);
+		instance_logger_internal.debug("MESSAGE: " + this.kafkaMessage);
+		instance_logger_internal.debug("TOPIC: " + this.kafkaTopic);
 
+		try {
+			instance_logger_internal.debug("Attempting to create kafka producer");
+			
+			instance_logger_internal.debug("Created the kafkaProducer.");
+			instance_logger_internal.debug("Created instances of producer record and kafka producer.");
+			instance_kafkaProducer.send(callable_record);
+			instance_kafkaProducer.flush();
+			instance_logger_internal.debug("Fisned and Flushed an instance of callable_kafkaProducer");
+		} catch(Exception e) {
+			instance_logger_internal.debug(e.toString());
+			return "false";
+		}
 		return kafkaHost;
 	}
 
