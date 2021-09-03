@@ -5,6 +5,6 @@ ls -la
 ls -la
 
 ../../Program\ Files/Docker/Docker/resources/bin/docker.exe build -t justinshagerty/kafka_as_a_service .
-../../Program\ Files/Docker/Docker/resources/bin/docker.exe run -p 80:80 justinshagerty/kafka_as_a_service
+../../Program\ Files/Docker/Docker/resources/bin/docker.exe run -it -p 80:80 justinshagerty/kafka_as_a_service
 
 
