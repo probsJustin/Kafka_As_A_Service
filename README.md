@@ -1,6 +1,12 @@
 # Kafka As A Service
 Kafka as a service for java, I wanted a way to easily implement the kafka producer and consumer to return it via a request and add this as portfolio filler/example. 
 
+I wanted to demonstrate specifically the following in a dynamic way for any kafka host/cluster:
+
+Servlet->calls callable->kafka producer
+
+Servlet->calls callable->kafka consumer
+
 ### Current Status: 
 Currently Done 
 
