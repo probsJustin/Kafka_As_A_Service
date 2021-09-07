@@ -1,6 +1,12 @@
 # Kafka As A Service
 Kafka as a service for java, I wanted a way to easily implement the kafka producer and consumer to return it via a request and add this as portfolio filler/example. 
 
+### Current Status: 
+Currently Done 
+
+### Use Case: 
+Used to demonstrate/test kafka hosts for APM (application performance monitoring) demonstrations to show tracing/examples to customers
+
 # Install/Run Notes: 
 Needs: Maven, docker, docker compose (included in docker in newer versions)
 
