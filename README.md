@@ -8,9 +8,12 @@ Needs: Maven, docker, docker compose (included in docker in newer versions)
 
 - go to kafka-docker directory 
 - run the following comamnd: 
+- 
 ```docker-compose -f ./docker-compose-expose.yml up```
 - go to the base directory of this repository...... 
 - run build.sh 
 - go to the following url: 
+
 ```http://localhost:8080/KAAS/kafkaConsumer?topic=topic_test&address=<YOUR LOCAL IP - TO ACCESS THE DOCKER CONTAINER>:9092```
+
 ```http://localhost:8080/KAAS/kafkaProducer?topic=topic_test&address=<YOUR LOCAL IP - TO ACCESS THE DOCKER CONTAINER>:9092&message=sure```
