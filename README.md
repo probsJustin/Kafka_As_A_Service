@@ -8,7 +8,7 @@ Needs: Maven, docker, docker compose (included in docker in newer versions)
 
 - go to kafka-docker directory 
 - run the following comamnd: 
-- 
+
 ```docker-compose -f ./docker-compose-expose.yml up```
 - go to the base directory of this repository...... 
 - run build.sh 
