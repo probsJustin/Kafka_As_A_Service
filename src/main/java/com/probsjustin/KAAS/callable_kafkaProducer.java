@@ -54,6 +54,7 @@ public class callable_kafkaProducer implements Callable<String> {
 			instance_logger_internal.debug("Created instances of producer record and kafka producer.");
 			instance_kafkaProducer.send(callable_record);
 			instance_kafkaProducer.flush();
+			instance_kafkaProducer.close(); 
 			instance_logger_internal.debug("Fisned and Flushed an instance of callable_kafkaProducer");
 		} catch(Exception e) {
 			instance_logger_internal.debug(e.toString());

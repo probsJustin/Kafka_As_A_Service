@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,7 +64,7 @@ public class controller_kafkaConsumer {
 		return instance_returnObject; 
 	}
 	
-	HttpServletResponse controller(HttpServletRequest func_request, HttpServletResponse func_response, identification_request_holder func_identification_request_holder_instance) throws IOException {
+	HttpServletResponse controller(HttpServletRequest func_request, HttpServletResponse func_response, identification_request_holder func_identification_request_holder_instance) throws IOException, InterruptedException {
 
 		Map <String,returnObject<String>> temp_map_holder_request_parameters_of_returnObject = new HashMap<String,returnObject<String>>(); 	
 		instance_logger_internal.debug(func_identification_request_holder_instance.getRequest_ID_String()); 
@@ -69,10 +72,32 @@ public class controller_kafkaConsumer {
 
 		temp_map_holder_request_parameters_of_returnObject.put("topic", this.checkRequestParameter_Validator(func_request, "topic"));
 		temp_map_holder_request_parameters_of_returnObject.put("address", this.checkRequestParameter_Validator(func_request, "address")); 
+		temp_map_holder_request_parameters_of_returnObject.put("message", this.checkRequestParameter_Validator(func_request, "message"));
 
 		if(check_requestParam_Map(temp_map_holder_request_parameters_of_returnObject)) {
 			try {
 				func_response.getWriter().append("the things are there that need to be there");
+				callable_kafkaConsumer instance_callable_kafkaConsumer = new callable_kafkaConsumer( 
+						temp_map_holder_request_parameters_of_returnObject.get("address").instance_returnable.toString(), 
+						temp_map_holder_request_parameters_of_returnObject.get("message").instance_returnable.toString(),
+						temp_map_holder_request_parameters_of_returnObject.get("topic").instance_returnable.toString()
+						); 
+				ExecutorService executor_thrd_callable_kafkaConsumer = Executors.newSingleThreadExecutor();
+				
+				Future<String> futureResult_executor_thrd_callable_kafkaConsumer = executor_thrd_callable_kafkaConsumer.submit(instance_callable_kafkaConsumer);
+				instance_logger_internal.debug("FUTURE:" + futureResult_executor_thrd_callable_kafkaConsumer);
+				while(!executor_thrd_callable_kafkaConsumer.isShutdown() && !futureResult_executor_thrd_callable_kafkaConsumer.isDone()) {
+					instance_logger_internal.debug("Waiting for executor service to be terminated.");
+					instance_logger_internal.debug("EXECUTOR STATUS:" + !executor_thrd_callable_kafkaConsumer.isShutdown());
+					instance_logger_internal.debug("FUTURE IS SHUT DOWN:" + !futureResult_executor_thrd_callable_kafkaConsumer.isDone());
+					instance_logger_internal.debug("FUTURE:" + futureResult_executor_thrd_callable_kafkaConsumer);
+
+		            Thread.sleep(4000);
+				}
+				instance_logger_internal.debug("Executor appears to be shut down.");
+				instance_logger_internal.debug("RESULT FUTURE:" + futureResult_executor_thrd_callable_kafkaConsumer);
+
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
