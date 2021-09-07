@@ -19,7 +19,8 @@ public class callable_kafkaConsumer implements Callable<String> {
 	String kafkaMessage; 
 	String kafkaTopic; 
     Map<String, Object> data = new HashMap<>();
-	logger_internal instance_logger_internal = new logger_internal(); 
+	logger_internal instance_logger_internal = new logger_internal();
+	// create instance of consumer to be used later - if you do not create it here you will get a fail to construct
 	Consumer<String,String> kafka_consumer_instance = null; 
 
 	callable_kafkaConsumer(String func_kafkaHost, String func_kafkaMessage, String func_kafkaTopic){
@@ -28,29 +29,30 @@ public class callable_kafkaConsumer implements Callable<String> {
 		this.kafkaMessage = func_kafkaMessage; 
 		this.kafkaTopic = func_kafkaTopic; 
 
-		Properties properties = new Properties();
-		properties.put("bootstrap.servers", "localhost:9092");
-		properties.put("group.id", "test");
-		properties.put("enable.auto.commit", "true");
-		properties.put("auto.commit.interval.ms", "1000");
-		properties.put("session.timeout.ms", "30000");
-		properties.put("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");  
-		properties.put("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
-		properties.put("max.poll.records", 1);
-		
-
 	     // Create the consumer using props.
-	    this.kafka_consumer_instance = new KafkaConsumer<>(properties);
+		instantiateKafkaConsumer(); 
 	}
 	
-	@Override
-	public String call() throws Exception{
-		instance_logger_internal.debug("Attempting to run an instance of callable_kafkaConsumer");
-
+	void instantiateKafkaConsumer() {
+	    this.kafka_consumer_instance = new KafkaConsumer<>(createPropertiesFile(this.kafkaHost));
+	}
 	
-	     // Subscribe to the topic.
-	     kafka_consumer_instance.subscribe(Collections.singletonList(this.kafkaTopic));
-	     try {
+	Properties createPropertiesFile(String func_host) {
+		Properties returnProperties = new Properties();
+		returnProperties.put("bootstrap.servers", func_host);
+		returnProperties.put("group.id", "test");
+		returnProperties.put("enable.auto.commit", "true");
+		returnProperties.put("auto.commit.interval.ms", "1000");
+		returnProperties.put("session.timeout.ms", "30000");
+		returnProperties.put("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");  
+		returnProperties.put("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
+		returnProperties.put("max.poll.records", 1);
+		return returnProperties; 
+	}
+	
+	
+	void readFromConsumerRecord_printToCLI() {
+		 try {
 	    	 while (true) {
 	    	        ConsumerRecords<String, String> records = kafka_consumer_instance.poll(Long.MAX_VALUE);
 	    	        for (ConsumerRecord<String, String> record : records) {
@@ -67,6 +69,17 @@ public class callable_kafkaConsumer implements Callable<String> {
 	     } finally {
 	    	 kafka_consumer_instance.close();
 	     }
+	}
+	
+	
+	@Override
+	public String call() throws Exception{
+		instance_logger_internal.debug("Attempting to run an instance of callable_kafkaConsumer");
+
+	
+	     // Subscribe to the topic.
+	     kafka_consumer_instance.subscribe(Collections.singletonList(this.kafkaTopic));
+	     readFromConsumerRecord_printToCLI(); 
 	     
 	     instance_logger_internal.debug("Finished an instance of callable_kafkaConsumer");
 	     instance_logger_internal.debug("DATA:" + data.toString());
