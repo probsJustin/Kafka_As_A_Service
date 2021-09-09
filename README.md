@@ -14,7 +14,7 @@ Currently Done
 Used to demonstrate/test kafka hosts for APM (application performance monitoring) demonstrations to show tracing/examples to customers
 
 ### Support: 
-Feel free to ping me on discord @probsJustin#6785 I dont plan to update this at this plan in time but I guess I could help/build/run it if you have any questions but I reserve the right to tell you I don't have space/time to help. 
+Feel free to ping me on discord @probsJustin#6785 I dont plan to update this at this point in time but I guess I could help/build/run it if you have any questions but I reserve the right to tell you I don't have space/time to help. 
 
 # Install/Run Notes: 
 Needs: Maven, docker, docker compose (included in docker in newer versions)
