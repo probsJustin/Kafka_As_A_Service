@@ -10,6 +10,7 @@ Servlet->calls callable->kafka consumer
 ### Current Status: 
 Currently Done 
 
+[![Build Status](http://172.105.156.21:8080/buildStatus/icon?job=Kafka_As_A_Service%2Fmaster)](http://172.105.156.21:8080/job/Kafka_As_A_Service/job/master/)
 ### Use Case: 
 Used to demonstrate/test kafka hosts for APM (application performance monitoring) demonstrations to show tracing/examples to customers
 
