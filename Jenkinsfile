@@ -4,7 +4,7 @@ pipeline {
     stage('Run Kafka Build Script') {
 	  steps {
         sh 'chmod 777 -R ./*'
-		sh './build.sh'
+		sh 'sudo ./build.sh'
       }
     }
   }
